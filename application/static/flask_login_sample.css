@@ -1,0 +1,21 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+}
+
+.navbar-bg-white {
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+}
+
+.navbar-container {
+    max-width: 950px;
+    padding: 10px, 0px, 10px, 0px;
+}
+
+.content-container {
+    max-width: 950px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0px;
+}
