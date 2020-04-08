@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
     def __repr__(self):
-        return f"User('{ self.id }', '{ self.username }', '{ self.password }')"
+        return f"User('{ self.id }', '{ self.created_at }', '{ self.username }', '{ self.password }', '{ self.role }', '{ self.email }')"
 
     def set_password_hash(self, password):
         self.password = generate_password_hash(password)

@@ -1,13 +1,52 @@
 {% extends 'base.html' %}
 
-{% block title %}Users{% endblock %}
-
 {% block content %}
+
+<div clas="container content-container">
+    <div class="mt-3">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: #dc3545">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
 <div class="container content-container">
-    <div class="row no-gutters">
-        <div class="col-md-9 order-md-2">
-            <p>Users page</p>
-        </div>
-    </div>    
+
+        <form class="form-inline" method="POST" action="/insert">
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" id="username" aria-describedby="username" placeholder="Enter username" required="true">
+                <input type="password" class="form-control" name="password" id="password" aria-describedby="password" placeholder="Enter password" required="true">
+                <input type="text" class="form-control" name="role" id="role" aria-describedby="role" placeholder="Enter role" required="true">
+                <input type="text" class="form-control" name="email" id="email" aria-describedby="email" placeholder="Enter email" required="true">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+
+    {% for user in users %}
+        <form class="form-inline" method="POST" action="/update">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="oldUsername" value="{{user.username}}" id="oldUsername" aria-describedby="oldUsername">
+                <input type="text" class="form-control" name="newUsername" value="{{user.username}}" id="newUsername" aria-describedby="newUsername" placeholder="Enter name" required="true">
+                <input type="hidden" class="form-control" name="oldPassword" value="{{user.password}}" id="oldPassword" aria-describedby="oldPassword">
+                <input type="password" class="form-control" name="newPassword" value="{{user.password}}" id="newPassword" aria-describedby="newPassword" placeholder="Enter password" required="true">
+                <input type="hidden" class="form-control" name="oldRole" value="{{user.role}}" id="oldRole" aria-describedby="oldRole">
+                <input type="text" class="form-control" name="newRole" value="{{user.role}}" id="newRole" aria-describedby="newRole" placeholder="Enter role" required="true">
+                <input type="hidden" class="form-control" name="oldEmail" value="{{user.email}}" id="oldEmail" aria-describedby="oldEmail">
+                <input type="text" class="form-control" name="newEmail" value="{{user.email}}" id="newEmail" aria-describedby="newEmail" placeholder="Enter email" required="true">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+
+        <form method="POST" action="/delete">
+            <input type="hidden" class="form-control" name="username" value="{{user.username}}" id="username" aria-describedby="username">
+            <button type="submit" class="btn btn-primary">Delete</button>       
+        </form>
+    {% endfor %}
+
+
 </div>
 {% endblock %}
