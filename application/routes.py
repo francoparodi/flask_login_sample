@@ -21,7 +21,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Username e Password non combaciano')
+            flash('Invalid credentials')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('homepage'))
@@ -32,19 +32,37 @@ def logout():
     logout_user()
     return redirect(url_for('homepage'))
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
 @app.route("/users")
 def users():
-    if not current_user.is_authenticated:
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     users = User.query.all()
     return render_template("users.html", users=users)
 
-@app.route("/insert", methods=["POST"])
+@app.route("/new")
+def new():
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
+    return render_template("new.html")
+
+@app.route("/edit/<int:id>")
+def edit(id):
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
+    user = User.query.filter_by(id=id).first()
+    return render_template("edit.html", user=user)
+
+@app.route("/remove/<int:id>")
+def remove(id):
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
+    user = User.query.filter_by(id=id).first()
+    return render_template("remove.html", user=user)
+
+@app.route("/add", methods=["POST"])
 def insert():
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
     try:
         username = request.form.get("username")        
         password = request.form.get("password")
@@ -64,6 +82,8 @@ def insert():
 
 @app.route("/update", methods=["POST"])
 def update():
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
     try:
         newUsername = request.form.get("newUsername")
         oldUsername = request.form.get("oldUsername")
@@ -84,6 +104,8 @@ def update():
 
 @app.route("/delete", methods=["POST"])
 def delete():
+    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+        return render_template("homepage.html")
     try:
         username = request.form.get("username")
         user = User.query.filter_by(username=username).first()
