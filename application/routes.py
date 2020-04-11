@@ -20,7 +20,8 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid credentials')
+            msg = "Invalid credentials"
+            flash(msg)
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('homepage'))
@@ -87,19 +88,20 @@ def update():
     try:
         newUsername = request.form.get("newUsername")
         oldUsername = request.form.get("oldUsername")
-        newPassword = request.form.get("newPassword")
-        newRole = request.form.get("newRole")
-        newEmail = request.form.get("newEmail")
+        password = request.form.get("password")
+        role = request.form.get("role")
+        email = request.form.get("email")
         user = User.query.filter_by(username=oldUsername).first()
         user.username = newUsername
-        user.set_password_hash(newPassword)
-        user.role = newRole
-        user.email = newEmail
+        user.set_password_hash(password)
+        user.role = role
+        user.email = email
         db.session.commit()
     except Exception as e:
         msg = "Failed to update user {}".format(oldUsername)
         flash(msg)
         print(e)
+        return redirect("/edit")
     return redirect("/users")
 
 @app.route("/delete", methods=["POST"])

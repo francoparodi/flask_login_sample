@@ -22,7 +22,10 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password" id="password" aria-describedby="password" placeholder="Enter password" required="true">
                 <label for="role">Role</label>
-                <input type="text" class="form-control" name="role" id="role" aria-describedby="role" placeholder="Enter role" required="true">
+                <select class="form-control" id="role" name="role">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER" selected>USER</option>
+                </select>                
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" id="email" aria-describedby="email" placeholder="Enter email" required="true">
             </div>

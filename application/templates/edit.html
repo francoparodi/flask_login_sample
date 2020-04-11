@@ -20,15 +20,15 @@
                 <label for="newUsername">Username</label>
                 <input type="hidden" class="form-control" name="oldUsername" value="{{user.username}}" id="oldUsername" aria-describedby="oldUsername">
                 <input type="text" class="form-control" name="newUsername" value="{{user.username}}" id="newUsername" aria-describedby="newUsername" placeholder="Enter name" required="true">
-                <label for="newPassword">Password</label>
-                <input type="hidden" class="form-control" name="oldPassword" value="{{user.password}}" id="oldPassword" aria-describedby="oldPassword">
-                <input type="password" class="form-control" name="newPassword" value="{{user.password}}" id="newPassword" aria-describedby="newPassword" placeholder="Enter password" required="true">
-                <label for="newRole">Role</label>
-                <input type="hidden" class="form-control" name="oldRole" value="{{user.role}}" id="oldRole" aria-describedby="oldRole">
-                <input type="text" class="form-control" name="newRole" value="{{user.role}}" id="newRole" aria-describedby="newRole" placeholder="Enter role" required="true">
-                <label for="newEmail">Email</label>
-                <input type="hidden" class="form-control" name="oldEmail" value="{{user.email}}" id="oldEmail" aria-describedby="oldEmail">
-                <input type="text" class="form-control" name="newEmail" value="{{user.email}}" id="newEmail" aria-describedby="newEmail" placeholder="Enter email" required="true">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" value="{{user.password}}" id="password" aria-describedby="password" placeholder="Enter password" required="true">
+                <label for="role">Role</label>
+                <select type="text" class="form-control" id="role" name="role" >
+                    <option value="ADMIN" {% if user.role == 'ADMIN' %} selected {% endif %}>ADMIN</option>
+                    <option value="USER" {% if user.role == 'USER' %} selected {% endif %}>USER</option>
+                </select>                
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" value="{{user.email}}" id="email" aria-describedby="email" placeholder="Enter email" required="true">
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
             <a class="btn btn-primary" href="{{ url_for('users') }}" role="button">Back</a>
