@@ -1,2 +1,3 @@
 venv
-db/flask_alchemy_sample.db
+application/__pycache__
+application/db

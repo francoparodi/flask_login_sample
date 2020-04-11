@@ -6,7 +6,6 @@ from application import db
 from application.forms import LoginForm
 from application.models import User
 
-
 @app.route("/")
 def homepage():
     if current_user.is_authenticated:
@@ -78,6 +77,7 @@ def insert():
         msg = "Failed to add user {}".format(username)
         flash(msg)
         print(e)
+        return redirect("/new")
     return redirect("/users")
 
 @app.route("/update", methods=["POST"])
