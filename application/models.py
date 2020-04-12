@@ -15,10 +15,11 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     role = db.Column(db.String(50), unique=False, default='USER')
     email = db.Column(db.String(50), unique=True, nullable=False)
+    enabled = db.Column(db.Boolean, default=False, unique=False, nullable=False)
     password = db.Column(db.String(250), nullable=False)
 
     def __repr__(self):
-        return f"User('{ self.id }', '{ self.created_at }', '{ self.username }', '{ self.password }', '{ self.role }', '{ self.email }')"
+        return f"User('{ self.id }', '{ self.created_at }', '{ self.username }', '{ self.password }', '{ self.role }', '{ self.email }' , '{ self.enabled }')"
 
     def set_password_hash(self, password):
         self.password = generate_password_hash(password)

@@ -23,6 +23,10 @@ def login():
             msg = "Invalid credentials"
             flash(msg)
             return redirect(url_for('login'))
+        elif user.enabled == 0:
+            msg = "User disabled"
+            flash(msg)
+            return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('homepage'))
     return render_template("login.html", form=form)
@@ -42,8 +46,8 @@ def users():
 @app.route("/new")
 def new():
     if not current_user.is_authenticated or not current_user.role == 'ADMIN':
-        return render_template("homepage.html")
-    return render_template("new.html")
+        return render_template("homepage.html")    
+    return render_template('new.html')
 
 @app.route("/edit/<int:id>")
 def edit(id):
@@ -68,10 +72,14 @@ def insert():
         password = request.form.get("password")
         role = request.form.get("role")
         email = request.form.get("email")
+        enabled = request.form.get("enabled")
         user = User(username=username)
         user.set_password_hash(password)
         user.role = role
         user.email = email
+        user.enabled = 0
+        if enabled == 'on':
+            user.enabled = 1
         db.session.add(user)
         db.session.commit()
     except Exception as e:
@@ -89,13 +97,19 @@ def update():
         newUsername = request.form.get("newUsername")
         oldUsername = request.form.get("oldUsername")
         password = request.form.get("password")
+        oldPassword = request.form.get("oldPassword")
         role = request.form.get("role")
         email = request.form.get("email")
+        enabled = request.form.get("enabled")
         user = User.query.filter_by(username=oldUsername).first()
         user.username = newUsername
-        user.set_password_hash(password)
+        if oldPassword != password:
+            user.set_password_hash(password)
         user.role = role
         user.email = email
+        user.enabled = 0
+        if enabled == 'on':
+            user.enabled = 1
         db.session.commit()
     except Exception as e:
         msg = "Failed to update user {}".format(oldUsername)

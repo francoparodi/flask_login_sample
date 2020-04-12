@@ -18,12 +18,16 @@
         <form method="POST" action="/delete">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input readonly="true" type="text" class="form-control" value="{{user.username}}" name="username" id="username" aria-describedby="username" >
+                <input readonly type="text" class="form-control" value="{{user.username}}" name="username" id="username" aria-describedby="username" >
                 <label for="role">Role</label>
-                <input readonly="true" type="text" class="form-control" value="{{user.role}}" name="role" id="role" aria-describedby="role">
+                <input readonly type="text" class="form-control" value="{{user.role}}" name="role" id="role" aria-describedby="role">
                 <label for="email">Email</label>
-                <input readonly="true" type="text" class="form-control" value="{{user.email}}" name="email" id="email" aria-describedby="email">
+                <input readonly type="text" class="form-control" value="{{user.email}}" name="email" id="email" aria-describedby="email">
             </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="enabled" id="enabled" {% if user.enabled == 1 %} checked {% endif %} disabled>
+                <label class="custom-control-label" for="enabled">Enabled</label>
+              </div>
             <button type="submit" class="btn btn-primary">Delete</button>
             <a class="btn btn-primary" href="{{ url_for('users') }}" role="button">Back</a>
         </form>
