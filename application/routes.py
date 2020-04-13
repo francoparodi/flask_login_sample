@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 from application import app
 from application import db
@@ -37,35 +37,40 @@ def logout():
     return redirect(url_for('homepage'))
 
 @app.route("/users")
+@login_required
 def users():
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     users = User.query.all()
     return render_template("users.html", users=users)
 
 @app.route("/new")
+@login_required
 def new():
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")    
     return render_template('new.html')
 
 @app.route("/edit/<int:id>")
+@login_required
 def edit(id):
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     user = User.query.filter_by(id=id).first()
     return render_template("edit.html", user=user)
 
 @app.route("/remove/<int:id>")
+@login_required
 def remove(id):
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     user = User.query.filter_by(id=id).first()
     return render_template("remove.html", user=user)
 
 @app.route("/add", methods=["POST"])
+@login_required
 def insert():
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     try:
         username = request.form.get("username")        
@@ -90,8 +95,9 @@ def insert():
     return redirect("/users")
 
 @app.route("/update", methods=["POST"])
+@login_required
 def update():
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     try:
         newUsername = request.form.get("newUsername")
@@ -119,8 +125,9 @@ def update():
     return redirect("/users")
 
 @app.route("/delete", methods=["POST"])
+@login_required
 def delete():
-    if not current_user.is_authenticated or not current_user.role == 'ADMIN':
+    if not current_user.role == 'ADMIN':
         return render_template("homepage.html")
     try:
         username = request.form.get("username")
