@@ -12,4 +12,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
-from application import routes
+from flask_login_sample import routes

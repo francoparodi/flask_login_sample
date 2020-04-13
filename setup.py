@@ -1,7 +1,7 @@
-from application import db
+from flask_login_sample import db
 print('Creating db...')
 db.create_all()
-from application.models import User 
+from flask_login_sample.models import User 
 u = User(username="admin", email="admin@localhost.com", role="ADMIN", enabled=1)
 u.set_password_hash("adminadmin")
 db.session.add(u)
