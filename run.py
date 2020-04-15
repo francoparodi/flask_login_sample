@@ -1,1 +1,1 @@
-from flask_login_sample import app
+from flaskr import app

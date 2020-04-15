@@ -1,10 +1,9 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 
-from flask_login_sample import app
-from flask_login_sample import db
-from flask_login_sample.forms import LoginForm
-from flask_login_sample.models import User
+from flaskr import app, db
+from flaskr.forms import LoginForm
+from flaskr.models import User
 
 @app.route("/")
 def homepage():
