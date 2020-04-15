@@ -17,8 +17,9 @@
     
     <nav class="navbar navbar-expand-lg navbar-light navbar-bg-white">
         <div class="container navbar-container">
-        <a class="navbar-brand" href="{{ url_for('homepage') }}" data-toggle="tooltip" title="Home">
+        <a class="navbar-brand" href="{{ url_for('view.homepage') }}" data-toggle="tooltip" title="Home">
             <img src="{{ url_for('static', filename='logo.png') }}" class="img-fluid" alt="Responsive image">
+            {{ current_user.username }}
         </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,14 +28,11 @@
                 <div class="navbar-nav ml-auto">
                     {% if current_user.is_authenticated %}
                         {% if current_user.role == 'ADMIN' %}
-                            <a class="nav-item nav-link" href="{{ url_for('users') }}" data-toggle="tooltip" title="Users">
-                                <i class="fas fa-users"></i>
+                            <a class="nav-item nav-link" href="{{ url_for('view.users') }}" data-toggle="tooltip" title="Users">
+                                Users
                             </a>
                         {% endif %} 
-                        <a class="nav-item nav-link" href="#" data-toggle="tooltip" title="{{current_user.username}} {{current_user.role}}">
-                            <i class="fas fa-user-shield"></i>
-                        </a>
-                        <a class="nav-item nav-link" href="{{ url_for('logout') }}" data-toggle="tooltip" title="Logout">
+                        <a class="nav-item nav-link" href="{{ url_for('view.logout') }}" data-toggle="tooltip" title="Logout">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     {% endif %}

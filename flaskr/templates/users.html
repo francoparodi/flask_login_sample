@@ -18,17 +18,17 @@
 
 <div class="container content-container">
 
-    <a class="nav-item nav-link" href="{{ url_for('new') }}" data-toggle="tooltip" title="New">
+    <a class="nav-item nav-link" href="{{ url_for('view.new') }}" data-toggle="tooltip" title="New">
         <i class="fas fa-user-plus"></i>
     </a>
 
-    <table class="table">
+    <table class="table table-sm">
         <thead>
         <tr>
-            <th scope="col">Username</th>
+            <th scope="col">Name</th>
             <th scope="col">Role</th>
             <th scope="col">Email</th>
-            <th scope="col">Enabled</th>
+            <th scope="col"></th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -41,10 +41,10 @@
             <td><input type="checkbox" disabled="true" name="enabled" id="enabled" {% if user.enabled == 1 %} checked {% endif %}></td>
             <td>
                 <div>
-                    <a  href="{{ url_for('edit', id=user.id) }}" data-toggle="tooltip" title="Edit">
+                    <a  href="{{ url_for('view.edit', id=user.id) }}" data-toggle="tooltip" title="Edit">
                         <i class="fas fa-user-edit"></i>
                     </a>
-                    <a  href="{{ url_for('remove', id=user.id) }}" data-toggle="tooltip" title="Remove">
+                    <a  href="{{ url_for('view.remove', id=user.id) }}" data-toggle="tooltip" title="Remove">
                         <i class="fas fa-user-minus"></i>
                     </a>
                 </div>

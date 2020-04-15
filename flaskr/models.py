@@ -1,9 +1,12 @@
 from datetime import datetime
 
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr import db, login_manager
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(id):

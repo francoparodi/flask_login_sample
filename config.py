@@ -8,7 +8,7 @@ class Config():
     SQLALCHEMY_DATABASE_FILENAME = os.path.join(PROJECT_DIR, APP_NAME, "db/login.db")
     SQLALCHEMY_DATABASE_URI = "sqlite:///{}".format(SQLALCHEMY_DATABASE_FILENAME)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.urandom(32)
 
 class Logger():
     LOG_FILENAME = "/var/tmp/flaskr.log"
