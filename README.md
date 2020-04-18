@@ -1,4 +1,11 @@
-**Install**
+# Flask Login Sample
+
+## Getting Started
+A sample login with Flask and SQLAlchemy, using Application Factory.
+
+### Prerequisites
+
+### Installing
 
 From the project root:
 ```sh
@@ -7,18 +14,35 @@ source venv/bin/activate
 pip install -r requirements.txt
 python3 setup.py
 ```
+Setup creates two users:
+admin (pwd: admin role: ADMIN - can handle users)
+user (pwd: user role: USER - cannot handle users)
 
-**Run** 
+## Running
 
-__serve localhost only__
+__as app__
 
 ```sh
 export FLASK_APP=flaskr
 flask run
 ```
 
-__serve as WSGI__
+__as wsgi server__
 
 ```sh
-waitress-serve --host XXX.XXX.XXX.XXX --port YYYY --call 'flaskr:create_app'
+waitress-serve --host localhost --port 8080 --call 'flaskr:create_app'
 ```
+or
+```sh
+gunicorn --worker-class eventlet -w 1 -b localhost:8080 wsgi
+```
+
+## Deployment
+
+As seen above (gunicorn, waitress...)
+
+## Authors 
+
+## License
+
+This project is licensed under the MIT License
