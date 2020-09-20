@@ -12,7 +12,7 @@ From the project root:
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python3 setup.py
+python3 init-db.py
 ```
 Setup creates two users:
 admin (pwd: admin role: ADMIN - can handle users)
